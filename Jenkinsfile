@@ -21,7 +21,6 @@ pipeline {
                     }
                 }
                 }
-            openshift.newProject( 'my-new-project-2' )
             script {
 				     openshift.withCluster() {
 				     openshift.newProject( 'my-new-project-2' )
