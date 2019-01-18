@@ -21,9 +21,11 @@ pipeline {
                     }
                 }
                 }
-            
+            openshift.newProject( 'my-new-project-2' )
             script {
 				     openshift.withCluster() {
+				     openshift.newProject( 'my-new-project-2' )
+				     echo "created new project"
                     openshift.withProject('subir-coolstore-dev') {
                       echo "cluster ${openshift.project()} Using project:  ${openshift.project()}"
                     }           
