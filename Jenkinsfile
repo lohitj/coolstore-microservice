@@ -40,7 +40,7 @@ pipeline {
       steps {
         script {
             openshift.withCluster() {
-                openshift.withProject() {
+                openshift.withProject('subir-coolstore-dev') {
                   openshift.newApp(templatePath) 
                 }
             }
@@ -51,7 +51,7 @@ pipeline {
       steps {
         script {
             openshift.withCluster() {
-                openshift.withProject() {
+                openshift.withProject('subir-coolstore-dev') {
                   def builds = openshift.selector("bc", templateName).related('builds')
                   timeout(5) { 
                     builds.untilEach(1) {
@@ -67,7 +67,7 @@ pipeline {
       steps {
         script {
             openshift.withCluster() {
-                openshift.withProject() {
+                openshift.withProject('subir-coolstore-dev') {
                   def rm = openshift.selector("dc", templateName).rollout()
                   timeout(5) { 
                     openshift.selector("dc", templateName).related('pods').untilEach(1) {
