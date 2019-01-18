@@ -36,17 +36,7 @@ pipeline {
         }
       }
     }
-    stage('create') {
-      steps {
-        script {
-            openshift.withCluster() {
-                openshift.withProject('subir-coolstore-dev') {
-                  openshift.newApp(templatePath) 
-                }
-            }
-        }
-      }
-    }
+   
     stage('build') {
       steps {
         script {
