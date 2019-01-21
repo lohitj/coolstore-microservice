@@ -25,7 +25,7 @@ pipeline {
                 }
             script {
 				     openshift.withCluster() {
-                    openshift.withProject('subir-coolstore-dev') {
+                    openshift.withProject('subir-coolstore-test') {
                       echo "cluster ${openshift.project()} Using project:  ${openshift.project()}"
                     }           
             }
@@ -40,7 +40,7 @@ pipeline {
           expression {
 				expression {
           openshift.withCluster() {
-            openshift.withProject('subir-coolstore-dev') {
+            openshift.withProject('subir-coolstore-test') {
             return !openshift.selector('dc', 'web-ui').exists()
             }
           }
@@ -52,7 +52,7 @@ pipeline {
         script {
             openshift.withCluster() {
 		    openshift.verbose()
-                openshift.withProject('subir-coolstore-dev') {
+                openshift.withProject('subir-coolstore-test') {
                   openshift.newApp(templatePath) 
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
           expression {
 				expression {
           openshift.withCluster() {
-            openshift.withProject('subir-coolstore-dev') {
+            openshift.withProject('subir-coolstore-test') {
             return openshift.selector('dc', 'web-ui').exists()
             }
           }
@@ -78,7 +78,7 @@ pipeline {
       steps {
 			  script{
 				  openshift.withCluster() {
-					openshift.withProject('subir-coolstore-dev') {
+					openshift.withProject('subir-coolstore-test') {
                       				openshift.startBuild("--from-build=web-ui")
                    			 }           	  
 				  }
