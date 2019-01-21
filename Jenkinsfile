@@ -11,6 +11,12 @@ pipeline {
     timeout(time: 20, unit: 'MINUTES') 
   }
   stages {
+	  stage('Build App') {
+      steps {
+        sh "mvn install"
+      }
+    }
+	  
     stage('preamble') {
         steps {
             script {
@@ -31,7 +37,21 @@ pipeline {
         }
     }
   }
-      stage('create') {
+	  
+	  
+      stage('create New') {
+      when {
+          expression {
+				expression {
+          openshift.withCluster() {
+            openshift.withProject('subir-coolstore-dev') {
+            return !openshift.selector('dc', 'web-ui').exists()
+            }
+          }
+        }
+          }
+
+      }
       steps {
         script {
             openshift.withCluster() {
@@ -43,5 +63,34 @@ pipeline {
         }
       }
     }
+    
+    
+    stage('Recreate existing') {
+      when {
+          expression {
+				expression {
+          openshift.withCluster() {
+            openshift.withProject('subir-coolstore-dev') {
+            return openshift.selector('dc', 'web-ui').exists()
+            }
+          }
+        }
+          }
+
+      }
+      
+      steps {
+			  script{
+				  openshift.withCluster() {
+					openshift.withProject('subir-coolstore-dev') {
+                      				openshift.startBuild("--from-build=web-ui")
+                   			 }           	  
+				  }
+			  }
+		  }	
+		  
+		  
+    }
+    
 }
 }
