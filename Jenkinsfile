@@ -41,7 +41,7 @@ pipeline {
 				expression {
           openshift.withCluster() {
             openshift.withProject('subir-coolstore-test') {
-            return !openshift.selector('dc', 'web-ui').exists()
+            return !openshift.selector('bc', 'web-ui').exists()
             }
           }
         }
@@ -67,7 +67,7 @@ pipeline {
 				expression {
           openshift.withCluster() {
             openshift.withProject('subir-coolstore-test') {
-            return openshift.selector('dc', 'web-ui').exists()
+            return openshift.selector('bc', 'web-ui').exists()
             }
           }
         }
