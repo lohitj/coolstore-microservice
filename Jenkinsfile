@@ -11,11 +11,7 @@ pipeline {
     timeout(time: 20, unit: 'MINUTES') 
   }
   stages {
-	  stage('Build App') {
-      steps {
-        sh "mvn install"
-      }
-    }
+
 	  
     stage('preamble') {
         steps {
