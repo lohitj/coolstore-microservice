@@ -60,6 +60,7 @@ pipeline {
 
         }
     }
+    }
     stage ('check') {
 	    steps{
         BuildDecide(return1())
@@ -71,6 +72,5 @@ pipeline {
       
     
     
-  }  
 		  
  }
