@@ -7,6 +7,7 @@ def return1() {
             }
 
 }
+}
 
 def BuildDecide(update){
     if(update == 'true') {
