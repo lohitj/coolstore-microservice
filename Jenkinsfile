@@ -1,6 +1,6 @@
 def templatePath = 'https://raw.githubusercontent.com/subir0071/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml' 
 def templateName = 'coolstore'
-def return1 {
+def return1() {
             openshift.withCluster() {
             openshift.withProject('coolstore-test-subir') {
             return openshift.selector('bc', 'web-ui').exists()
