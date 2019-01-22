@@ -21,7 +21,7 @@ def BuildDecide(update){
     else  {
 				  openshift.withCluster() {
 					openshift.withProject('coolstore-test-subir') {
-                      				openshift.startBuild("--from-build=web-ui")
+                      				openshift.startBuild("web-ui")
                    			}           	  
 				
     }
