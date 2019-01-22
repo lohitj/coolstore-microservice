@@ -40,7 +40,7 @@ pipeline {
           expression {
 				expression {
           openshift.withCluster() {
-            openshift.withProject('lohit-test') {
+            openshift.withProject('ms-coolstore') {
             return !openshift.selector('bc', 'web-ui').exists()
             }
           }
@@ -52,7 +52,7 @@ pipeline {
         script {
             openshift.withCluster() {
 		    openshift.verbose()
-                openshift.withProject('lohit-test') {
+                openshift.withProject('ms-coolstore') {
                   openshift.newApp(templatePath) 
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
           expression {
 				expression {
           openshift.withCluster() {
-            openshift.withProject('lohit-test') {
+            openshift.withProject('ms-coolstore') {
             return openshift.selector('bc', 'web-ui').exists()
             }
           }
