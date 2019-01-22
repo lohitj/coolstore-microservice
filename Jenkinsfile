@@ -25,7 +25,7 @@ pipeline {
                 }
             script {
 				     openshift.withCluster() {
-                    openshift.withProject('lohit-test') {
+                    openshift.withProject('ms-coolstore') {
                       echo "cluster ${openshift.project()} Using project:  ${openshift.project()}"
                     }           
             }
