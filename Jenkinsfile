@@ -8,8 +8,8 @@ def return1() {
 
 }
 
-def BuildDecide(){
-    if(return() == 'true') {
+def BuildDecide(update){
+    if(update == 'true') {
         openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('coolstore-test-subir') {
@@ -17,7 +17,7 @@ def BuildDecide(){
                 }
             }
     }
-    else if(return() == 'false') {
+    else if(update == 'false') {
 				  openshift.withCluster() {
 					openshift.withProject('coolstore-test-subir') {
                       				openshift.startBuild("--from-build=web-ui")
@@ -59,7 +59,7 @@ pipeline {
         }
     }
     stage ('check') {
-        BuildDecide()
+        BuildDecide(return())
     }
   }
 	  
