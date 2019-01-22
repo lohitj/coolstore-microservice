@@ -53,7 +53,7 @@ pipeline {
             openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('subir-coolstore-test') {
-                  openshift.newApp(templatePath) 
+                  openshift.create(templatePath) 
                 }
             }
         }
