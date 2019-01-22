@@ -17,7 +17,7 @@ def BuildDecide(update){
                 }
             }
     }
-    else if(update == 'false') {
+    else  {
 				  openshift.withCluster() {
 					openshift.withProject('coolstore-test-subir') {
                       				openshift.startBuild("--from-build=web-ui")
@@ -59,7 +59,9 @@ pipeline {
         }
     }
     stage ('check') {
+	    steps{
         BuildDecide(return())
+	    }
     }
   }
 	  
