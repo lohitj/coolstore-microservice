@@ -26,6 +26,7 @@ def BuildDecide(update){
 				
     }
 }
+}
 
 
 pipeline {
