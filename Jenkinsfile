@@ -1,4 +1,4 @@
-def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml' 
+def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/1.2.x/openshift/coolstore-template.yaml' 
 def templateName = 'coolstore'
 
 pipeline {
