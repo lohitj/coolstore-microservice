@@ -52,7 +52,7 @@ pipeline {
             script {
 				     openshift.withCluster() {
                     openshift.withProject('subir-coolstore-test') {
-                      echo "cluster ${openshift.project()} Using project:  ${openshift.project()}"
+                      echo "cluster ${openshift.project()} re Using project:  ${openshift.project()}"
                     }           
             }
 
@@ -60,7 +60,7 @@ pipeline {
     }
     stage ('check') {
 	    steps{
-        BuildDecide(return())
+        BuildDecide(return1())
 	    }
     }
   }
