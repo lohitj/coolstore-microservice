@@ -36,8 +36,7 @@ pipeline {
 	  
 	  
       stage('create New') {
-      when {
-          expression {
+	      when {
 				expression {
           openshift.withCluster() {
             openshift.withProject('ms-coolstore') {
