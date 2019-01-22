@@ -1,5 +1,31 @@
-def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/1.2.x/coolstore.json' 
+def templatePath = 'https://raw.githubusercontent.com/subir0071/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml' 
 def templateName = 'coolstore'
+def return1 {
+            openshift.withCluster() {
+            openshift.withProject('coolstore-test-subir') {
+            return openshift.selector('bc', 'web-ui').exists()
+            }
+
+}
+
+def BuildDecide(){
+    if(return() == 'true') {
+        openshift.withCluster() {
+		    openshift.verbose()
+                openshift.withProject('coolstore-test-subir') {
+                  openshift.newApp(templatePath) 
+                }
+            }
+    }
+    else if(return() == 'false') {
+				  openshift.withCluster() {
+					openshift.withProject('coolstore-test-subir') {
+                      				openshift.startBuild("--from-build=web-ui")
+                   			}           	  
+				
+    }
+}
+
 
 pipeline {
   agent {
@@ -32,61 +58,15 @@ pipeline {
 
         }
     }
+    stage ('check') {
+        BuildDecide()
+    }
   }
 	  
 	  
-      stage('create New') {
-      when {
-          expression {
-				expression {
-          openshift.withCluster() {
-            openshift.withProject('subir-coolstore-test') {
-            return !openshift.selector('bc', 'web-ui').exists()
-            }
-          }
-        }
-          }
-
-      }
-      steps {
-        script {
-            openshift.withCluster() {
-		    openshift.verbose()
-                openshift.withProject('subir-coolstore-test') {
-                  openshift.create(templatePath) 
-                }
-            }
-        }
-      }
-    }
-    
-    
-    stage('Recreate existing') {
-      when {
-          expression {
-				expression {
-          openshift.withCluster() {
-            openshift.withProject('subir-coolstore-test') {
-            return openshift.selector('bc', 'web-ui').exists()
-            }
-          }
-        }
-          }
-
-      }
       
-      steps {
-			  script{
-				  openshift.withCluster() {
-					openshift.withProject('subir-coolstore-test') {
-                      				openshift.startBuild("--from-build=web-ui")
-                   			 }           	  
-				  }
-			  }
-		  }	
-		  
-		  
-    }
     
-}
-}
+    
+    
+		  
+ }
