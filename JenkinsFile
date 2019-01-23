@@ -60,7 +60,7 @@ agent any
     }
     stage ('Sonar'){
         steps{
-          sh"mvn sonar:sonar"
+          sh"mvn -f cart-service/pom.xml sonar:sonar"
         }
 	    
     }
