@@ -1,0 +1,139 @@
+def test(){
+    def changeLogSets = currentBuild.changeSets
+    def update = ''
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            if(entry != null)
+            {
+                def Date = new Date(entry.getTimestamp())
+                update=Date.format("yyyy-MM-dd'T'HH:mm:ss", TimeZone.getTimeZone('UTC'))+".000Z";
+                println update
+                echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+                def files = new ArrayList(entry.affectedFiles)
+                for (int k = 0; k < files.size(); k++) {
+                    def file = files[k]
+                    echo "  ${file.editType.name} ${file.path}"
+            }
+        }
+    }
+    }
+    return update
+}
+def test1(){
+    def changeLogSets1 = currentBuild.previousBuild.changeSets
+    for (int i = 0; i < changeLogSets1.size(); i++) {
+        def entries1 = changeLogSets1[i].items
+            for (int j = 0; j < entries1.length; j++) {
+                def entry1 = entries1[j]
+                echo "${entry1.commitId} by ${entry1.author} on ${new Date(entry1.timestamp)}: ${entry1.msg}"
+                def files1 = new ArrayList(entry1.affectedFiles)
+            for (int k = 0; k < files1.size(); k++) {
+                def file1 = files1[k]
+                echo "  ${file1.editType.name} ${file1.path}"
+            }
+        }
+    }
+}
+
+def checout(){
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'e35ac079-efc0-4391-8d43-9d4c95371ae3', url: "${GIT_URL}"]]])
+}
+def BuildDecide(){
+    if(env.Merge == 'unchecked') {
+        println env.Merge
+        currentBuild.result = 'Aborted'
+        println currentBuild.result
+    }
+    else if(env.Merge == 'opened') {
+        println env.Merge
+        currentBuild.result = 'Aborted'
+        println currentBuild.result
+    }
+}
+def ApiExp(update){
+    if(update != '')
+    {
+        sleep(10)
+        echo 'Pending Commits:'
+        def response = httpRequest authentication: 'ded3ad4d-2081-4f18-924d-42aad82cd5e7', responseHandle: 'LEAVE_OPEN', url: 'http://infygit.ad.infosys.com/api/v4/projects/15185/repository/commits?since='+update
+        println('Status: '+response.status)
+        println('Response: '+response.content)
+        
+    }
+    else
+    {
+        echo 'There Are No Commits'
+    }
+}
+pipeline {
+    agent any
+    environment {
+        GIT_URL='git@infygit.ad.infosys.com:lohit.jain/training_project_september.git'
+        Merge = "${gitlabMergeRequestState}"
+    }
+    tools{
+        maven 'maven'
+        jdk   'JDK'
+    }
+ stages {
+        stage ('testconvert - Checkout') {
+            steps{
+                
+                checout()
+                echo 'Current Build Commit'
+                ApiExp(test())
+                echo 'Previous build Commit'
+                test1()
+                BuildDecide()
+            }
+ 	  
+        }
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
+        // stage('Static Code Analysis'){
+        //     steps{
+        //         bat 'mvn sonar:sonar'
+        //     }
+        // }
+        stage('Code Coverage') {
+            steps {
+                bat 'mvn cobertura:cobertura'
+                cobertura coberturaReportFile: '**/target/site/cobertura/coverage.xml'
+            }
+        }
+        stage('Packaging') {
+            steps {
+                bat 'mvn war:war' 
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat 'mvn deploy' 
+            }
+        }
+        
+}
+post {
+        always {
+            echo "I AM ALWAYS first"
+        }
+        aborted {
+            echo "BUILD ABORTED"
+        }
+        success {
+            echo "BUILD SUCCESS"
+        }
+        unstable {
+            echo "BUILD UNSTABLE"
+        }
+        failure {
+            echo "BUILD FAILURE"
+        }
+    }
+}
