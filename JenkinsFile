@@ -1,4 +1,4 @@
-def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/openshift/coolstore-template.yaml' 
+def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml' 
 def templateName = 'coolstore'
 def return1() {
             openshift.withCluster() {
