@@ -18,7 +18,7 @@ public class NewTest {
 		}	
 		@BeforeTest
 		public void beforeTest() {	
-			String driverPath = "/var/lib/origin/driver/chromedriver";
+			String driverPath = "/var/lib/origin/driver/chromedriver.exe";
         		System.setProperty("webdriver.chrome.driver", driverPath);
         		ChromeOptions options = new ChromeOptions();
         		options.addArguments("--headless");
