@@ -18,7 +18,7 @@ def BuildDecide(update){
         openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('coolstore-dev-lohit') {
-                  openshift.newApp(templatePath) 
+                  openshift.newApp("https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml") 
                 }
             }
     }
