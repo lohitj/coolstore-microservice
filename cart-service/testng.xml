@@ -3,7 +3,7 @@
  <suite name="Suite1" parallel="none" >
   <test name="Test"   >
     <classes>
-      <class name="cart-service.example.NewTest"/>
+      <class name="example.NewTest"/>
     </classes>
  </test>
 </suite>
