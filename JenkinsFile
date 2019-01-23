@@ -60,9 +60,7 @@ def SONAR_SCANNER = tool "SONARQUBE_SCANNER"
     }
     stage ('Sonar'){
         steps{
-            
-            withSonarQubeEnv {
-           sh "sonar-scanner"
+          sh"mvn sonar:sonar"
         }
 	    
             
