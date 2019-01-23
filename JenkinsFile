@@ -1,0 +1,66 @@
+def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/openshift/coolstore-template.yaml' 
+def templateName = 'coolstore'
+def return1() {
+            openshift.withCluster() {
+            openshift.withProject('coolstore-test-subir') {
+            return openshift.selector('bc', 'web-ui').exists()
+            }
+
+}
+}
+def checout(){
+      checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_URL}"]]])
+}
+
+def BuildDecide(update){
+    if(update == 'true') {
+        openshift.withCluster() {
+		    openshift.verbose()
+                openshift.withProject('coolstore-test-subir') {
+                  openshift.newApp(templatePath) 
+                }
+            }
+    }
+    else  {
+				  openshift.withCluster() {
+					openshift.withProject('coolstore-test-subir') {
+                      				openshift.startBuild("web-ui")
+                   			}           	  
+				
+    }
+}
+}
+
+
+pipeline {
+  agent any
+    environment {
+        GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
+    }
+    tools{
+        maven 'MAVEN_HOME'
+        jdk   'JAVA_HOME'
+    }
+
+  stages {
+  stage ('check') {
+	    steps{
+        BuildDecide(return1())
+	    }
+    }
+    stage ('Build') {
+        checout()
+        sh 'mvn -f cart/pom.xml clean install'
+    }
+	  
+   
+    }
+    
+  }
+	  
+	  
+      
+    
+    
+		  
+ }
