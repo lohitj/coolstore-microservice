@@ -57,7 +57,7 @@ pipeline {
     }
     stage ('Sonar'){
         steps{
-             BuildDecide(return1('sonarqube-ephemeral')
+             BuildDecide(return1('sonarqube-ephemeral'))
             sh 'mvn -f cart-service/pom.xml sonar:sonar'
             
         }
