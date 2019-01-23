@@ -2,7 +2,7 @@ def return1(name) {
             openshift.withCluster() {
             openshift.withProject('coolstore-dev-lohit') {
 	    
-            return openshift.selector('bc', name).exists()
+            return openshift.selector('dc', name).exists()
             }
 
 }
