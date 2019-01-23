@@ -2,7 +2,7 @@ def templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microserv
 def templateName = 'coolstore'
 def return1() {
             openshift.withCluster() {
-            openshift.withProject('coolstore-test-subir') {
+            openshift.withProject('coolstore-dev-lohit') {
             return openshift.selector('bc', 'web-ui').exists()
             }
 
