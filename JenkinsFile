@@ -1,8 +1,8 @@
-def return1() {
+def return1(name) {
             openshift.withCluster() {
             openshift.withProject('coolstore-dev-lohit') {
 	    
-            return openshift.selector('bc', 'web-ui').exists()
+            return openshift.selector('bc', name).exists()
             }
 
 }
@@ -46,26 +46,20 @@ pipeline {
   stages {
   stage ('check') {
 	    steps{
-        BuildDecide(return1())
+        BuildDecide(return1('web-ui'))
 	    }
     }
     stage ('Build') {
     steps{
         checout()
-        //sh 'mvn -f cart-service/pom.xml clean install'
+        sh 'mvn -f cart-service/pom.xml clean install'
         }
     }
     stage ('Sonar'){
         steps{
-	script {
-             openshift.withCluster() {
-		    openshift.verbose()
-                openshift.withProject('coolstore-dev-lohit') {
-                  openshift.newApp("${sonarQube}") 
-                }
+             BuildDecide(return1('sonarqube-ephemeral')
             sh'mvn sonar:sonar'
-            }
-	    }
+            
         }
     }
 	  
