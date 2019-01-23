@@ -30,22 +30,7 @@ def BuildDecide(update){
 }
 }
 def BuildDecideSonar(update){
-    if(!update) {
-        openshift.withCluster() {
-		    openshift.verbose()
-                openshift.withProject('coolstore-dev-lohit') {
-                  openshift.newApp("${sonarQube}") 
-                }
-            }
-    }
-    else  {
-		openshift.withCluster() {
-		openshift.withProject('coolstore-dev-lohit') {
-                  openshift.startBuild("web-ui")
-                   			}           	  
-				
-    }
-}
+ return openshiftVerifyService(svcName: 'sonar')
 }
 
 
@@ -74,10 +59,10 @@ pipeline {
         }
     }
     stage ('Sonar'){
-        script{
-             if(!openshiftVerifyService(svcName: 'sonar')){
+        steps{
+            
             sh 'mvn -f cart-service/pom.xml sonar:sonar'
-	    }
+	    
             
         }
     }
