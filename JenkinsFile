@@ -18,14 +18,14 @@ def BuildDecide(update){
         openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('coolstore-dev-lohit') {
-                  openshift.newApp("https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml") 
+                  openshift.newApp("${templatePath}") 
                 }
             }
     }
     else  {
-				  openshift.withCluster() {
-					openshift.withProject('coolstore-dev-lohit') {
-                      				openshift.startBuild("web-ui")
+		openshift.withCluster() {
+		openshift.withProject('coolstore-dev-lohit') {
+                  openshift.startBuild("web-ui")
                    			}           	  
 				
     }
@@ -37,6 +37,7 @@ pipeline {
   agent any
     environment {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
+	templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
     }
     tools{
         maven 'MAVEN_HOME'
