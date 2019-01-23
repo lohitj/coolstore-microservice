@@ -75,8 +75,9 @@ pipeline {
     }
     stage ('Sonar'){
         steps{
-             BuildDecideSonar(return1('sonarqube-ephemeral'))
+             if(!openshiftVerifyService(svcName: 'sonar')){
             sh 'mvn -f cart-service/pom.xml sonar:sonar'
+	    }
             
         }
     }
