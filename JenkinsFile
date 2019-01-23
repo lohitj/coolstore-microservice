@@ -16,14 +16,14 @@ def BuildDecide(update){
     if(update == 'true') {
         openshift.withCluster() {
 		    openshift.verbose()
-                openshift.withProject('coolstore-test-subir') {
+                openshift.withProject('coolstore-dev-lohit') {
                   openshift.newApp(templatePath) 
                 }
             }
     }
     else  {
 				  openshift.withCluster() {
-					openshift.withProject('coolstore-test-subir') {
+					openshift.withProject('coolstore-dev-lohit') {
                       				openshift.startBuild("web-ui")
                    			}           	  
 				
