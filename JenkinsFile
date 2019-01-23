@@ -57,6 +57,7 @@ pipeline {
     }
     stage ('Sonar'){
         steps{
+	script {
              openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('coolstore-dev-lohit') {
@@ -64,6 +65,7 @@ pipeline {
                 }
             sh'mvn sonar:sonar'
             }
+	    }
         }
     }
 	  
