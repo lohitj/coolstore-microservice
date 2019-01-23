@@ -1,7 +1,9 @@
 package com.redhat.coolstore;
 import org.openqa.selenium.By;		
-import org.openqa.selenium.WebDriver;		
-import org.openqa.selenium.ie.InternetExplorerDriver; 		
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;		
 import org.testng.annotations.Test;	
 import org.testng.annotations.BeforeTest;	
@@ -16,10 +18,15 @@ public class NewTest {
 		}	
 		@BeforeTest
 		public void beforeTest() {	
-		    driver = new InternetExplorerDriver();  
+			String driverPath = "/origin/driver/chromedriver";
+        		System.setProperty("webdriver.chrome.driver", driverPath);
+        		ChromeOptions options = new ChromeOptions();
+        		options.addArguments("--headless");
+        		ChromeDriver driver = new ChromeDriver(options);
 		}		
 		@AfterTest
 		public void afterTest() {
-			driver.quit();			
+			driver.close();
+        		driver.quit();			
 		}		
 }
