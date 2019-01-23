@@ -1,7 +1,7 @@
 package com.redhat.coolstore;
 import org.openqa.selenium.By;		
 import org.openqa.selenium.WebDriver;		
-import org.openqa.selenium.firefox.FirefoxDriver;		
+import org.openqa.selenium.ie.InternetExplorerDriver; 		
 import org.testng.Assert;		
 import org.testng.annotations.Test;	
 import org.testng.annotations.BeforeTest;	
@@ -16,7 +16,7 @@ public class NewTest {
 		}	
 		@BeforeTest
 		public void beforeTest() {	
-		    driver = new FirefoxDriver();  
+		    driver = new InternetExplorerDriver();  
 		}		
 		@AfterTest
 		public void afterTest() {
