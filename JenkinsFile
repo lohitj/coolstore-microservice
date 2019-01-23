@@ -3,7 +3,7 @@ def templateName = 'coolstore'
 def return1() {
             openshift.withCluster() {
             openshift.withProject('coolstore-dev-lohit') {
-	    echo openshift.selector('bc','web-ui').exists()
+	    echo !openshift.selector('bc','web-ui').exists()
             return openshift.selector('bc', 'web-ui').exists()
             }
 
