@@ -34,8 +34,8 @@ def BuildDecideSonar(update){
 }
 
 
-node {
-def SONAR_SCANNER = tool "SONARQUBE_SCANNER"
+pipeline {
+agent any
     environment {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
 	    templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
@@ -63,8 +63,6 @@ def SONAR_SCANNER = tool "SONARQUBE_SCANNER"
           sh"mvn sonar:sonar"
         }
 	    
-            
-        }
     }
 	  
    
