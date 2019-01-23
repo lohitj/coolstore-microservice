@@ -46,14 +46,14 @@ pipeline {
             script {
                 openshift.withCluster() {
                 	openshift.verbose()
-                    openshift.withProject() {
+                    openshift.withProject('coolstore-test-subir') {
                       echo "cluster ${openshift.project()} Using project:  ${openshift.project()}"
                     }
                 }
                 }
             script {
 				     openshift.withCluster() {
-                    openshift.withProject('subir-coolstore-test') {
+                    openshift.withProject('coolstore-test-subir') {
                       echo "cluster ${openshift.project()} re Using project:  ${openshift.project()}"
                     }           
             }
