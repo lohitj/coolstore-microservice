@@ -3,7 +3,7 @@
  <suite name="Suite1" parallel="none" >
   <test name="Test">
     <packages>
-      <package name="com\.redhat\.coolstore"/>
+      <package name="com.redhat.coolstore"/>
     </packages>
  </test>
 </suite>
