@@ -69,6 +69,7 @@ agent any
     }
     stage ('Sonar'){
     steps {
+    	BuildDecideSonar()
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
