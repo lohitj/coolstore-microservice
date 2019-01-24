@@ -94,7 +94,7 @@ pipeline
         {
             steps
             {
-                sh "mvn -f cart-service/pom.xml  clean package"
+                sh "mvn -f cart-service/pom.xml  clean prepare-agent report"
             }
         }
         
