@@ -4,6 +4,8 @@
   <test name="Test"   >
     <classes>
       <class name="com.redhat.coolstore.NewTest"/>
+      <class name="com.redhat.coolstore.CartServiceBoundaryTest"/>
+      <class name="com.redhat.coolstore.ProductsObjectMother"/>
     </classes>
  </test>
 </suite>
