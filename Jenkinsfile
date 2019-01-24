@@ -74,14 +74,7 @@ pipeline
                 //sh 'mvn -f cart-service/pom.xml clean install'
             }
         }
-        stage('Jacoco')
-        {
-            steps
-            {
-                sh "mvn -f cart-service/pom.xml  clean package"
-            }
-        }
-        stage ('Sonar')
+	stage ('Sonar')
         {
             steps
             {
@@ -90,6 +83,21 @@ pipeline
             }
 	    
         }
+	stage ('Unit test')
+	  {
+		  steps
+		  {
+			sh "mvn -f cart-service/pom.xml test"
+		  }
+	  }
+        stage('Jacoco')
+        {
+            steps
+            {
+                sh "mvn -f cart-service/pom.xml  clean package"
+            }
+        }
+        
 	}
     
 }
