@@ -169,9 +169,15 @@
                 <version>2.18.1</version>
                 <inherited>true</inherited>
                 <configuration>
-                    <suiteXmlFiles>
+			   <excludes>
+            				<exclude>${someModule.test.excludes}</exclude>
+          		</excludes>
+          		<includes>
+            			<include>${someModule.test.includes}</include>
+          		</includes>
+<!--                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    </suiteXmlFiles> -->
                 </configuration>
             </plugin>
             <plugin>
@@ -206,4 +212,10 @@
             </plugin>
         </plugins>
     </build>
+	<properties>
+    <someModule.skip.tests>false</someModule.skip.tests>
+    <skipTests>${someModule.skip.tests}</skipTests>
+    <someModule.test.includes>**/*CartServiceBoundaryTest.java</someModule.test.includes>
+    <someModule.test.excludes>**/*ProductsObjectMother.java</someModule.test.excludes>
+  </properties>
 </project>
