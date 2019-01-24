@@ -50,7 +50,11 @@
         <!-- <version.org.kie>6.4.0.Final-redhat-10</version.org.kie> -->
         <version.org.kie>6.4.0.Final</version.org.kie>
         <version.org.infinispan>6.3.1.Final-redhat-1</version.org.infinispan>
-    </properties>
+	<someModule.skip.tests>false</someModule.skip.tests>
+    	<skipTests>${someModule.skip.tests}</skipTests>
+    	<someModule.test.includes>**/*CartServiceBoundaryTest.java</someModule.test.includes>
+    	<someModule.test.excludes>**/*ProductsObjectMother.java</someModule.test.excludes>
+    	</properties>
 
     <dependencies>
         <dependency>
@@ -212,10 +216,4 @@
             </plugin>
         </plugins>
     </build>
-	<properties>
-    <someModule.skip.tests>false</someModule.skip.tests>
-    <skipTests>${someModule.skip.tests}</skipTests>
-    <someModule.test.includes>**/*CartServiceBoundaryTest.java</someModule.test.includes>
-    <someModule.test.excludes>**/*ProductsObjectMother.java</someModule.test.excludes>
-  </properties>
 </project>
