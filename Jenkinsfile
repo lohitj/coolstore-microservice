@@ -50,7 +50,6 @@ pipeline
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
 	    templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
         sonarQube = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
-	    scannerHome = tool 'SONARQUBE_SCANNER'
     }
     tools{
         maven 'MAVEN_HOME'
