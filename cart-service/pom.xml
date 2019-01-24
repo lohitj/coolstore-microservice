@@ -173,6 +173,7 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+                 </plugin>
                 <plugin>
                     <groupId>org.sonarsource.plugins.example</groupId>
                     <artifactId>sonar-example-plugin</artifactId>
