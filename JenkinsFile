@@ -34,7 +34,8 @@ def BuildDecideSonar(update){
 		    openshift.verbose()
                 openshift.withProject('lohit-test') {
                   openshift.newApp("${sonarQube}") 
-
+}
+}
 
 pipeline {
 agent any
