@@ -19,6 +19,7 @@ def BuildDecide(update){
                   openshift.newApp("${templatePath}") 
                 }
             }
+	    BuildDecideSonar()
     }
     else  {
 		openshift.withCluster() {
@@ -71,7 +72,7 @@ agent any
     }
     stage ('Sonar'){
     steps {
-    	BuildDecideSonar()
+    	
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
