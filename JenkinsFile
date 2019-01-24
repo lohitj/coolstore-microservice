@@ -72,7 +72,7 @@ agent any
     }
     stage ('Sonar'){
     steps{
-                sh 'mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com''
+                sh "mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'"
                 
             }
 
