@@ -87,19 +87,7 @@ agent any
         }*/
 	    
     }
-	  stage("Dev - Deploying Application"){
-		  steps{
-       openshiftDeploy(deploymentConfig: 'carts-service')
-		  }
-   }
-   
-  
-   
-   stage("Tagging Image for Production"){
-	   steps {
-      openshiftTag(srcStream: 'carts-service', srcTag: 'latest', destStream: 'carts-service', destTag: 'prod')
-	   }
-   }
+	  
    
 	  
    
