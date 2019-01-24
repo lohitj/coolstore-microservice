@@ -41,6 +41,7 @@ agent any
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
 	    templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
         sonarQube = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
+	scannerHome = tool 'SONARQUBE_SCANNER'
     }
     tools{
         maven 'MAVEN_HOME'
@@ -66,13 +67,9 @@ agent any
     }
     stage ('Sonar'){
     steps {
-           step{
-	   def scannerHome = tool 'SONARQUBE_SCANNER'
-	   }
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
        /* steps{
           sh"mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com/projects' -X"
         }*/
