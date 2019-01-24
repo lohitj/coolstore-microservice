@@ -60,7 +60,7 @@ agent any
     }
     stage('Jacoco'){
     steps{
-    sh "mvn -f cart-service/pom.xml mvn clean test"
+    sh "mvn -f cart-service/pom.xml  clean test"
     }
     }
     stage ('Sonar'){
