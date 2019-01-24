@@ -36,7 +36,7 @@ def BuildDecideSonar(update){
 
 pipeline {
 agent any
-def scannerHome = tool 'SONARQUBE_SCANNER'
+
     environment {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
 	    templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
@@ -66,7 +66,9 @@ def scannerHome = tool 'SONARQUBE_SCANNER'
     }
     stage ('Sonar'){
     steps {
-                
+           step{
+	   def scannerHome = tool 'SONARQUBE_SCANNER'
+	   }
                 withSonarQubeEnv('SonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
