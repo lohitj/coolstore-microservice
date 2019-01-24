@@ -29,11 +29,12 @@ def BuildDecide(update){
     }
 }
 }
-def BuildDecideSonar(update){
+def BuildDecideSonar(){
  openshift.withCluster() {
 		    openshift.verbose()
                 openshift.withProject('lohit-test') {
                   openshift.newApp("${sonarQube}") 
+}
 }
 }
 
