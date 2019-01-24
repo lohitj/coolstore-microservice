@@ -30,8 +30,10 @@ def BuildDecide(update){
 }
 }
 def BuildDecideSonar(update){
- return openshiftVerifyService(svcName: 'sonar')
-}
+ openshift.withCluster() {
+		    openshift.verbose()
+                openshift.withProject('lohit-test') {
+                  openshift.newApp("${sonarQube}") 
 
 
 pipeline {
