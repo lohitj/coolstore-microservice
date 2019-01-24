@@ -16,7 +16,7 @@ def BuildDecide(update)
 {
     if(!update) {
         openshift.withCluster() {
-		openshift.verbose()
+	openshift.verbose()
         openshift.withProject('coolstore-dev-lohit') {
         openshift.newApp("${templatePath}") 
         }
@@ -62,8 +62,8 @@ pipeline
         stage ('check') 
         {
 	        steps
-            {
-                BuildDecide(return1('web-ui'))
+            	{
+                	BuildDecide(return1('web-ui'))
 	        }
         }
         stage ('Build') 
