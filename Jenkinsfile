@@ -70,14 +70,14 @@ pipeline
             steps
             {
                 checout()
-                //sh 'mvn -f cart-service/pom.xml clean install'
+                sh 'mvn -f cart-service/pom.xml clean install'
             }
         }
 	stage ('Sonar')
         {
             steps
             {
-                sh "mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'"
+                sh "mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com' -X"
 
             }
 	    
