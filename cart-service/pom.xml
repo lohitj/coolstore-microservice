@@ -216,6 +216,7 @@
                 <goal>report</goal>
             </goals>
             <configuration>
+		   <argLine>${failsafeArgLine}</argLine>
                 <!-- Sets the path to the file which contains the execution data. -->
                 <dataFile>${project.build.directory}/coverage-reports/jacoco-it.exec</dataFile>
                 <!-- Sets the output directory for the code coverage report. -->
