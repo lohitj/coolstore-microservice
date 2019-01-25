@@ -96,7 +96,7 @@ pipeline
                 sh "mvn -f cart-service/pom.xml  clean package"
             }
         }
-	stage('Jacoco')
+	stage('Findbug')
         {
             steps
             {
