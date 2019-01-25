@@ -27,7 +27,7 @@ def BuildDecide(update)
     {
 	    openshift.withCluster() {
 	    openshift.withProject('coolstore-dev-lohit') {
-        openshift.startBuild("cart")
+        openshift.startBuild("web-ui")
         }           	  
 	    }
     }
@@ -62,7 +62,7 @@ pipeline
         {
 	        steps
             	{
-                	BuildDecide(return1('cart'))
+                	BuildDecide(return1('web-ui'))
 	        }
         }
         stage ('Build') 
