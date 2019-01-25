@@ -186,7 +186,67 @@
 		<artifactId>sonar-maven-plugin</artifactId>
 		<version>3.2</version>
 	    </plugin>
+		<plugin>
 
+                                                                <groupId>com.github.spotbugs</groupId>
+
+                                                                <artifactId>spotbugs-maven-plugin</artifactId>
+
+                                                                <version>3.1.6</version>
+
+                                                                <configuration>
+
+                                                                                <effort>Max</effort>
+
+                                                                                <threshold>Low</threshold>
+
+                                                                                <failOnError>true</failOnError>
+
+                                                                                <!-- <includeFilterFile>D:\\DevOps\\FindSecBugs\\include_filter.xml</includeFilterFile>
+
+                                                                                <excludeFilterFile>D:\\DevOps\\FindSecBugs\\exclude_filter.xml</excludeFilterFile> -->
+
+                                                                                <!-- <excludeBugsFile>D:\\DevOps\\FindSecBugs\\spotbugs_false_positive.xml</excludeBugsFile> -->
+
+                                                                                <xmlOutput>true</xmlOutput>
+
+                                                                                <!-- <pluginList>D:\\DevOps\\FindSecBugs\\plugin_jar\\detector-plugin-0.0.1-SNAPSHOT.jar</pluginList> -->
+
+                                                                                <plugins>
+
+                                                                                                <plugin>
+
+                                                                                                                <groupId>com.h3xstream.findsecbugs</groupId>
+
+                                                                                                                <artifactId>findsecbugs-plugin</artifactId>
+
+                                                                                                                <version>LATEST</version>
+
+                                                                                                </plugin>
+
+                                                                                </plugins>
+
+                                                                </configuration>
+
+                                                                <dependencies>
+
+                                                                                <!-- overwrite dependency on spotbugs if you want to specify the version
+
+                                                                                                of spotbugs -->
+
+                                                                                <dependency>
+
+                                                                                                <groupId>com.github.spotbugs</groupId>
+
+                                                                                                <artifactId>spotbugs</artifactId>
+
+                                                                                                <version>3.1.6</version>
+
+                                                                                </dependency>
+
+                                                                </dependencies>
+
+                                                </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
