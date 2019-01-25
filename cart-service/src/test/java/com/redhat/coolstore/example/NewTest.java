@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;	
 import org.testng.annotations.AfterTest;
 public class NewTest {		
-	  /*  private WebDriver driver;		
+	    private WebDriver driver;		
 		@Test				
 		public void testEasy() {	
-			driver.get("http://demo.guru99.com/test/guru99home/");  
+			driver.get("/var/lib/origin/chromedriver");  
 			String title = driver.getTitle();				 
 			Assert.assertTrue(title.contains("Demo Guru99 Page")); 		
 		}	
@@ -28,5 +28,5 @@ public class NewTest {
 		public void afterTest() {
 			driver.close();
         		driver.quit();			
-		}	*/	
+		}		
 }
