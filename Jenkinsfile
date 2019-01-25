@@ -96,6 +96,13 @@ pipeline
                 sh "mvn -f cart-service/pom.xml  clean package"
             }
         }
+	stage('Jacoco')
+        {
+            steps
+            {
+                sh "mvn -f cart-service/pom.xml  findbugs:findbugs"
+            }
+        }
         
 	}
     
