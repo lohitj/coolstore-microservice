@@ -161,12 +161,12 @@
                 <artifactId>webdriverextensions-maven-plugin</artifactId>
                 <version>2.0.0</version>
                 <configuration>
-                    <drivers>
-                        <driver>
-                            <name>chromedriver</name>
-                            <platform>mac</platform>
-                            <version>2.20</version>
-                        </driver>
+                    <driver>
+            <name>chromedriver</name>
+            <platform>linux</platform>
+            <bit>64</bit>
+            <version>2.22</version>
+                </driver>
                     </drivers>
                     <installationDirectory>${project.basedir}/target/tmp_webdrivers</installationDirectory>
                     <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
@@ -201,7 +201,6 @@
                 <inherited>true</inherited>
                 <configuration>
 						<suiteXmlFiles>
-                        <!-- TestNG suite XML files -->
                         <suiteXmlFile>testng.xml</suiteXmlFile>
 						</suiteXmlFiles>
                 </configuration>
@@ -215,19 +214,19 @@
 
             <groupId>com.github.spotbugs</groupId>
 
-                                                                <artifactId>spotbugs-maven-plugin</artifactId>
+               <artifactId>spotbugs-maven-plugin</artifactId>
 
-                                                                <version>3.1.6</version>
+                             <version>3.1.6</version>
 
-                                                                <configuration>
+                                      <configuration>
 
-                                                                                <effort>Max</effort>
+                                     <effort>Max</effort>
 
-                                                                                <threshold>Low</threshold>
+                                       <threshold>Low</threshold>
 
-                                                                                <failOnError>true</failOnError>
+                                          <failOnError>true</failOnError>
 
-                                                                                <!-- <includeFilterFile>D:\\DevOps\\FindSecBugs\\include_filter.xml</includeFilterFile>
+  <!-- <includeFilterFile>D:\\DevOps\\FindSecBugs\\include_filter.xml</includeFilterFile>
 
                                                                                 <excludeFilterFile>D:\\DevOps\\FindSecBugs\\exclude_filter.xml</excludeFilterFile> -->
 
@@ -257,21 +256,21 @@
 
                                                                                 <!-- overwrite dependency on spotbugs if you want to specify the version
 
-                                                                                                of spotbugs -->
+                    of spotbugs -->
 
-                                                                                <dependency>
+                    <dependency>
 
-                                                                                                <groupId>com.github.spotbugs</groupId>
+                        <groupId>com.github.spotbugs</groupId>
 
-                                                                                                <artifactId>spotbugs</artifactId>
+                        <artifactId>spotbugs</artifactId>
 
-                                                                                                <version>3.1.6</version>
+                        <version>3.1.6</version>
 
-                                                                                </dependency>
+                    </dependency>
 
-                                                                </dependencies>
+                </dependencies>
 
-                                                </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -297,11 +296,6 @@
                 </executions>
             </plugin>
         </plugins>
-		<driver>
-        <name>chromedriver</name>
-        <platform>linux</platform>
-        <bit>64</bit>
-        <version>2.22</version>
-    </driver>
     </build>
 </project>
+
