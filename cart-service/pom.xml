@@ -156,6 +156,31 @@
 
     <build>
         <plugins>
+		<plugin>
+                <groupId>com.github.webdriverextensions</groupId>
+                <artifactId>webdriverextensions-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <configuration>
+                    <drivers>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>mac</platform>
+                            <version>2.20</version>
+                        </driver>
+                    </drivers>
+                    <installationDirectory>${project.basedir}/target/tmp_webdrivers</installationDirectory>
+                    <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>webdriver download</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>install-drivers</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -175,12 +200,9 @@
                 <version>2.18.1</version>
                 <inherited>true</inherited>
                 <configuration>
-			   <excludes>
-            				<exclude>${someModule.test.excludes}</exclude>
-          		</excludes>
-          		<includes>
-            			<include>${someModule.test.includes}</include>
-			</includes>
+						<suiteXmlFiles>
+                        <!-- TestNG suite XML files -->
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
                 </configuration>
             </plugin> 
             <plugin>
@@ -190,7 +212,7 @@
 	    </plugin>
 		<plugin>
 
-                                                                <groupId>com.github.spotbugs</groupId>
+            <groupId>com.github.spotbugs</groupId>
 
                                                                 <artifactId>spotbugs-maven-plugin</artifactId>
 
@@ -274,5 +296,11 @@
                 </executions>
             </plugin>
         </plugins>
+		<driver>
+        <name>chromedriver</name>
+        <platform>linux</platform>
+        <bit>64</bit>
+        <version>2.22</version>
+    </driver>
     </build>
 </project>
