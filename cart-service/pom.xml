@@ -140,13 +140,8 @@
         </dependency>	
 	    <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
-    <artifactId>selenium-remote-driver</artifactId>
-    <version>2.44.0</version>
-</dependency>
-	    <dependency>
-    <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
-    <version>2.53.0</version>
+    <version>3.141.59</version>
 </dependency>
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
@@ -156,13 +151,8 @@
 	    <dependency>
   <groupId>org.seleniumhq.selenium</groupId>
            <artifactId>selenium-server</artifactId>
-    <version>2.4.0</version>
+    <version>3.141.59</version>
     </dependency>
-         <dependency>
-             <groupId>org.seleniumhq.selenium</groupId>
-               <artifactId>selenium-java</artifactId>
-              <version>3.141.59</version>
-            </dependency>
      <dependency>
              <groupId>junit</groupId>
               <artifactId>junit</artifactId>
