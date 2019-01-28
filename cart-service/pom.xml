@@ -203,6 +203,7 @@
 						<suiteXmlFiles>
                         <!-- TestNG suite XML files -->
                         <suiteXmlFile>testng.xml</suiteXmlFile>
+						</suiteXmlFiles>
                 </configuration>
             </plugin> 
             <plugin>
