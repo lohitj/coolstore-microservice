@@ -70,7 +70,7 @@ pipeline
             steps
             {
                 checout()
-                sh 'mvn -f cart-service/pom.xml clean install -X'
+                sh 'mvn -f cart-service/pom.xml clean install -DtestngGroups="sanity" -X'
             }
         }
 	stage ('Sonar')
