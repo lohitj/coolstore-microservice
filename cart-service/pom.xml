@@ -167,7 +167,6 @@
             <bit>64</bit>
             <version>2.22</version>
                 </driver>
-                    </drivers>
                     <installationDirectory>${project.basedir}/target/tmp_webdrivers</installationDirectory>
                     <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
                 </configuration>
