@@ -16,7 +16,7 @@ public class NewTest {
     public void beforeTest() {
         String webDriverKey = "webdriver.chrome.driver";
         String webDriverValue = System.getProperty("user.dir") +
-                "/target/tmp_webdrivers/chromedriver-mac-32bit";
+                "/target/tmp_webdrivers/chromedriver-linux-64bit";
         System.setProperty(webDriverKey, webDriverValue);
         driver = new ChromeDriver();
         driver.get("http://www.google.com");
