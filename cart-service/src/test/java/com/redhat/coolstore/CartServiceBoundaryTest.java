@@ -24,24 +24,10 @@ public class CartServiceBoundaryTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @ClassRule
-    public static HoverflyRule hoverflyRule = HoverflyRule.inSimulationMode(dsl(
-        service("catalog")
-            .get("/api/products")
-            .willReturn(success(json(ProductsObjectMother.createVehicleProducts())))
-    ));
+      @Test
+    public void should_get_initialized_shopping_cart_in_case_of_not_exists() {
 
-    @Test
-    public void should_add_item_to_shopping_cart() {
+        System.out.println("Hi");
 
-        final ShoppingCart shoppingCart = this.restTemplate.postForObject("/api/cart/1/1111/2", "", ShoppingCart.class);
-
-        assertThat(shoppingCart)
-            .returns(0.0, ShoppingCart::getCartItemPromoSavings)
-            .returns(2000.0, ShoppingCart::getCartItemTotal)
-            .returns(-10.99, ShoppingCart::getShippingPromoSavings)
-            .returns(2000.0, ShoppingCart::getCartTotal)
-            .extracting(ShoppingCart::getShoppingCartItemList)
-            .hasSize(1);
     }
 }
