@@ -1,18 +1,18 @@
 package com.redhat.coolstore;
-import org.openqa.selenium.By;		
+	
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;		
-import org.testng.annotations.Test;	
-import org.testng.annotations.BeforeTest;	
-import org.testng.annotations.AfterTest;
+import org.junit.Assert;
+	import org.junit.Test;
+		
+
 //import org.openqa.selenium.MutableCapabilities;
 public class NewIT {
  
     WebDriver driver;
  
-    @BeforeTest
+    @Test
     public void beforeTest() {
         String webDriverKey = "webdriver.chrome.driver";
         String webDriverValue = System.getProperty("user.dir") +
@@ -24,8 +24,8 @@ public class NewIT {
  
 //todo: test
  
-    @AfterTest
+  /* @AfterTest
     public void afterTest() {
 //         driver.quit();
-    }	
+    }	*/
 }
