@@ -7,7 +7,7 @@ import org.junit.Assert;
 	import org.junit.Test;
 		
 
-//import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.MutableCapabilities;
 public class NewIT {
  
     WebDriver driver;
