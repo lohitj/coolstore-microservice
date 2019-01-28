@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;	
 import org.testng.annotations.BeforeTest;	
 import org.testng.annotations.AfterTest;
-import org.openqa.selenium.MutableCapabilities;
+// import org.openqa.selenium.MutableCapabilities;
 public class NewTest {
  
     WebDriver driver;
