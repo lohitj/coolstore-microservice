@@ -70,7 +70,7 @@ pipeline
             steps
             {
                 checout()
-                sh 'mvn -f cart-service/pom.xml clean integration-test'
+                sh 'mvn -f cart-service/pom.xml clean verify'
             }
         }
 	stage ('Sonar')
@@ -87,6 +87,19 @@ pipeline
 		  steps
 		  {
 			sh "mvn -f cart-service/pom.xml test"
+		  }
+	  }
+	  stage('Integration-Test')
+	  {
+		  agent {
+    		node {
+        		label 'selenium'
+        		customWorkspace 'jenkins_ws/ws1'
+    		     }
+		}
+	  	steps
+		  {
+			  sh "mvn -f cart-service/pom.xml integration-test"
 		  }
 	  }
         stage('Jacoco')
