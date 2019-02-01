@@ -44,7 +44,10 @@ def BuildDecideSonar()
 
 pipeline 
 {
-    agent any
+	agent {
+	  podTemplate(label:'my-label',cloud: 'openshift', containers: [containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'jnlp', ports: [], privileged: false, resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: false, workingDir: '/reports')], inheritFrom: '', instanceCap: 0, label: '', name: '', namespace: '', nodeSelector: '', serviceAccount: '', volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]){}
+	}
+	
     environment 
     {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
@@ -89,19 +92,18 @@ pipeline
 			sh "mvn -f cart-service/pom.xml test"
 		  }
 	  }
-	  podTemplate(label:'my-label',cloud: 'openshift', containers: [containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'jnlp', ports: [], privileged: false, resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: false, workingDir: '/reports')], inheritFrom: '', instanceCap: 0, label: '', name: '', namespace: '', nodeSelector: '', serviceAccount: '', volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]) {
-    // some block
+	
 
 
-		  node(label) { stage('Integration-Test')
+	 stage('Integration-Test')
 	  {
 
-	  	steps
+		steps
 		  {
-			  sh "mvn -f cart-service/pom.xml integration-test"
+			  container("jnlp"){sh "mvn -f cart-service/pom.xml integration-test"}
 		  }
 	  }
-			      }}
+			 
         stage('Jacoco')
         {
             steps
