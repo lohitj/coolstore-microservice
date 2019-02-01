@@ -89,7 +89,7 @@ pipeline
 			sh "mvn -f cart-service/pom.xml test"
 		  }
 	  }
-	  podTemplate(cloud: 'openshift', containers: [containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'jnlp', ports: [], privileged: false, resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: false, workingDir: '/reports')], inheritFrom: '', instanceCap: 0, label: '', name: '', namespace: '', nodeSelector: '', serviceAccount: '', volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)], workspaceVolume: emptyDirWorkspaceVolume(false)) {
+	  podTemplate(cloud: 'openshift', containers: [containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'jnlp', ports: [], privileged: false, resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: false, workingDir: '/reports')], inheritFrom: '', instanceCap: 0, label: '', name: '', namespace: '', nodeSelector: '', serviceAccount: '', volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]) {
     // some block
 
 
