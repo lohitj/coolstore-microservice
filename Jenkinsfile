@@ -47,7 +47,7 @@ pipeline
 	agent {
 	   kubernetes(cloud: 'openshift', 
 	containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools',
-name: 'jnlp', workingDir: '/reports')], volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]){}
+name: 'jnlp', workingDir: '/reports'), volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]){}
 	}
 	
     environment 
