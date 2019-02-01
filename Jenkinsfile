@@ -89,19 +89,19 @@ pipeline
 			sh "mvn -f cart-service/pom.xml test"
 		  }
 	  }
+	  podTemplate(cloud: 'openshift', containers: [containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/jnlp-java-tools', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'jnlp', ports: [], privileged: false, resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: false, workingDir: '/reports')], inheritFrom: '', instanceCap: 0, label: '', name: '', namespace: '', nodeSelector: '', serviceAccount: '', volumes: [persistentVolumeClaim(claimName: 'test-lohit', mountPath: '/reports', readOnly: false)], workspaceVolume: emptyDirWorkspaceVolume(false)) {
+    // some block
+
+
 	  stage('Integration-Test')
 	  {
-		  agent {
-    		node {
-        		label 'selenium'
-        		customWorkspace 'jenkins_ws/ws1'
-    		     }
-		}
+
 	  	steps
 		  {
 			  sh "mvn -f cart-service/pom.xml integration-test"
 		  }
 	  }
+		  }
         stage('Jacoco')
         {
             steps
