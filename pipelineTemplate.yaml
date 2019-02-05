@@ -1,0 +1,26 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: coolstore-pipeline-template
+objects:
+  - kind: BuildConfig
+    apiVersion: v1 
+    metadata:
+      name: coolstore-ui-pipeline
+    spec:
+      source:
+        git:
+          uri: https://github.com/lohitj/coolstore-microservice
+      strategy:
+        jenkinsPipelineStrategy  
+parameters:
+- description: Git source URL for application
+  displayName: Git source repository
+  name: GIT_SOURCE_URL
+  required: true
+- displayName: Git template URL for full aplication
+  name: GIT_TEMPLATE_URL
+  required: true
+- description: The name for the application.
+  name: APPLICATION_NAME
+  required: true
