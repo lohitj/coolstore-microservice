@@ -2,15 +2,5 @@ kind: Template
 apiVersion: v1
 metadata:
   name: coolstore-pipeline-template
-objects:
-  - kind: BuildConfig
-    apiVersion: v1 
-    metadata:
-      name: coolstore-ui-pipeline
-    spec:
-      source:
-        git:
-          uri: https://github.com/lohitj/coolstore-microservice
-      strategy:
-        jenkinsPipelineStrategy  
+    
 
