@@ -13,14 +13,4 @@ objects:
           uri: https://github.com/lohitj/coolstore-microservice
       strategy:
         jenkinsPipelineStrategy  
-parameters:
-- description: Git source URL for application
-  displayName: Git source repository
-  name: GIT_SOURCE_URL
-  required: false
-- displayName: Git template URL for full aplication
-  name: GIT_TEMPLATE_URL
-  required: false
-- description: The name for the application.
-  name: APPLICATION_NAME
-  required: false
+
