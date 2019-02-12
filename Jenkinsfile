@@ -26,7 +26,7 @@ def BuildDecide(update)
         openshift.withCluster() {
 	openshift.verbose()
         openshift.withProject(datas.devproject) {
-        openshift.newApp("${templatePath}") 
+        openshift.newApp(datas.templatePath) 
         }
     }
 	BuildDecideSonar()
@@ -45,7 +45,7 @@ def BuildDecideSonar()
     openshift.withCluster() {
 	openshift.verbose()
     openshift.withProject(datas.cicdproject) {
-    openshift.newApp("${sonarQube}") 
+    openshift.newApp(datas.sonarTemplate) 
         }
     }
 }
@@ -57,8 +57,6 @@ pipeline
     environment 
     {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
-	    templatePath = datas.templatePath
-        sonarQube = datas.sonarTemplate
     }
     tools{
         maven 'MAVEN_HOME'
