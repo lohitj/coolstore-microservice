@@ -4,3 +4,4 @@ sonarTemplate : 'https://raw.githubusercontent.com/lohitj/coolstore-microservice
 sonarUrl : 'http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'
 devproject : 'coolstore-dev-lohit'
 cicdproject: 'lohit-test'
+templateName: 'cart'
