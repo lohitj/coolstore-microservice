@@ -1,0 +1,6 @@
+templatePath : 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
+microservice : 'web-ui'
+sonarTemplate : 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
+sonarUrl : 'http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'
+devproject : 'coolstore-dev-lohit'
+cicdproject: 'lohit-test'
