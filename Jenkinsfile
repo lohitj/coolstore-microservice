@@ -1,3 +1,4 @@
+def yamlFile(){
 def datas = readYaml text: """
 templatePath: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
 microservice: 'web-ui'
@@ -6,6 +7,7 @@ sonarUrl: 'http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'
 devproject: 'coolstore-dev-lohit'
 cicdproject: 'test-lohit'
 """
+}
 def return1(name) 
 {
     openshift.withCluster() {
