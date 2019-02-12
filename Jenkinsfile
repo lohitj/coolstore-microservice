@@ -70,7 +70,7 @@ pipeline
         stage ('check') 
         {
 	        steps
-            	{
+            	{ 	yamlFile()
                 	BuildDecide(return1(datas.microservice))
 	        }
         }
