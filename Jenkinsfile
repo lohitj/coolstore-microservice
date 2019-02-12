@@ -1,4 +1,5 @@
-def yamlFile(){
+def yamlFile()
+{
 def datas = readYaml text: """
 templatePath: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
 microservice: 'web-ui'
@@ -70,7 +71,8 @@ pipeline
         stage ('check') 
         {
 	        steps
-            	{ 	yamlFile()
+            	{ 	
+			yamlFile()
                 	BuildDecide(return1(datas.microservice))
 	        }
         }
