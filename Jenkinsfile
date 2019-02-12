@@ -1,7 +1,15 @@
+def datas = readYaml text: """
+templatePath: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
+microservice: 'web-ui'
+sonarTemplate: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
+sonarUrl: 'http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'
+devproject: 'coolstore-dev-lohit'
+cicdproject: 'test-lohit'
+"""
 def return1(name) 
 {
     openshift.withCluster() {
-    openshift.withProject('coolstore-dev-lohit') {
+    openshift.withProject(datas.devproject) {
     return openshift.selector('dc', name).exists()
     }
 
@@ -17,7 +25,7 @@ def BuildDecide(update)
     if(!update) {
         openshift.withCluster() {
 	openshift.verbose()
-        openshift.withProject('coolstore-dev-lohit') {
+        openshift.withProject(datas.devproject) {
         openshift.newApp("${templatePath}") 
         }
     }
@@ -26,8 +34,8 @@ def BuildDecide(update)
     else  
     {
 	    openshift.withCluster() {
-	    openshift.withProject('coolstore-dev-lohit') {
-        openshift.startBuild("web-ui")
+	    openshift.withProject(datas.devproject) {
+        openshift.startBuild(datas.microservice)
         }           	  
 	    }
     }
@@ -36,7 +44,7 @@ def BuildDecideSonar()
 {
     openshift.withCluster() {
 	openshift.verbose()
-    openshift.withProject('lohit-test') {
+    openshift.withProject(datas.cicdproject) {
     openshift.newApp("${sonarQube}") 
         }
     }
@@ -44,17 +52,13 @@ def BuildDecideSonar()
 
 pipeline 
 {
-	agent {
-	   kubernetes(cloud: 'openshift', 
-	containerTemplate(alwaysPullImage: true, args: '', command: '', envVars: [], image: 'cloudbees/java-build-tools',
-name: 'jnlp', workingDir: '/reports'), volumes: [persistentVolumeClaim(claimName: 'lohit-test', mountPath: '/reports', readOnly: false)]){}
-	}
+	agent any
 	
     environment 
     {
         GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
-	    templatePath = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
-        sonarQube = 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
+	    templatePath = datas.templatePath
+        sonarQube = datas.sonarTemplate
     }
     tools{
         maven 'MAVEN_HOME'
@@ -67,7 +71,7 @@ name: 'jnlp', workingDir: '/reports'), volumes: [persistentVolumeClaim(claimName
         {
 	        steps
             	{
-                	BuildDecide(return1('web-ui'))
+                	BuildDecide(return1(datas.microservice))
 	        }
         }
         stage ('Build') 
