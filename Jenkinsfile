@@ -76,6 +76,7 @@ node
    env.PATH="${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
     stage('Build')
    {
+	   sh'cd /var/lib/jenkins/jobs/test-lohit/jobs/test-lohit-java/workspace@script'
        //checout()
 	   yamlFile()
 	   
