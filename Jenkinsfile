@@ -7,17 +7,18 @@ def yamlFile()
     env.microservice = datas.microservice
     env.devproject = datas.devproject
     env.cicdproject = datas.cicdproject
+	env.prodproject = datas.prodproject
     env.templatePath = datas.templatePath
     env.sonarTemplate = datas.sonarTemplate
     env.templateName = datas.templateName
 	env.sonar = datas.sonar
 }
-def return1(name) 
+def return1(name,project) 
 {
     echo name
     openshift.withCluster() {
-    openshift.withProject("${devproject}") {
-    return openshift.selector('dc',"${microservice}").exists()
+    openshift.withProject(project) {
+    return openshift.selector('dc',name).exists()
     }
 
 }
@@ -36,7 +37,7 @@ def BuildDecide(update)
         openshift.newApp("${templatePath}") 
         }
     }
-	
+	BuildDecideSonar()
     }
     else  
     {
@@ -45,7 +46,7 @@ def BuildDecide(update)
         openshift.startBuild("${microservice}")
         }           	  
 	    }
-		/*BuildDecideSonar()*/
+		
     }
 }
 def BuildDecideSonar()
@@ -62,6 +63,7 @@ podTemplate(cloud:'openshift',label: 'selenium',
     containerTemplate(
       name: 'jnlp',
       image: 'cloudbees/java-build-tools',
+	  alwaysPullImage: true,
       args: '${computer.jnlpmac} ${computer.name}'
     )])
 {
@@ -91,24 +93,20 @@ node
    }
    stage('check')
    {
-       BuildDecide(return1("${microservice}"))
+       BuildDecide(return1("${microservice}","${devproject}"))
    }
    stage('Jacoco')
     {
         sh "mvn -f cart-service/pom.xml  clean package"
     }
 
-		node('selenium')
-	{
-		stage('Integration-Test')
+		node('selenium'){stage('Integration-Test')
 		{
-			container('jnlp')
-			{
+			container('jnlp'){
 			    echo'integration-test'
-			 //   sh"mvn -f cart-service/pom.xml integration-test"
+			 //sh"mvn -f cart-service/pom.xml integration-test"
 			}
-		}
-	}
+		}}
 
 			stage('Findbug')
 				{
@@ -125,6 +123,14 @@ node
 				}
 			}
 		}
+		  /*stage('Deploy to Production approval')
+		  {
+             input "Deploy to prod?"
+		}
+		stage("Promote to Production")
+		{
+			BuildDecide(return1("${microservice}","${prodproject}"))
+		}*/
   
 	}
 }
