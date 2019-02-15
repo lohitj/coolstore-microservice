@@ -8,7 +8,7 @@ def yamlFile()
 	echo "${env.BUILD_URL}"
 	openshift.withCluster() {
 		openshift.withProject(){
-			def project2 = "${openshift.project()}"}
+			def project2 = "${openshift.project()}"}}
 		echo project2
 	def datas = readYaml file: '/var/lib/jenkins/jobs/test-lohit/jobs/'+"${JOB_BASE_NAME}"+'/workspace/propertyFile.yml'
     env.microservice = datas.microservice
