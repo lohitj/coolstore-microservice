@@ -3,7 +3,7 @@
 def yamlFile()
 {
     echo 'start'
-    def datas = readYaml file: '/var/lib/jenkins/jobs/ddd/workspace/propertyFile.yml'
+    def datas = readYaml file: '/var/lib/jenkins/jobs/$JOB_BASE_NAME/workspace/propertyFile.yml'
     env.microservice = datas.microservice
     env.devproject = datas.devproject
     env.cicdproject = datas.cicdproject
@@ -25,7 +25,7 @@ def return1(name,project)
 }
 def checout()
 {
-    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_URL}"]]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/lohitj/coolstore-microservice.git']]])
 }
 
 def BuildDecide(update)
@@ -76,9 +76,10 @@ node
    env.PATH="${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
     stage('Build')
    {
-           checout()
+       checout()
 	   yamlFile()
-	   sh 'mvn -f cart-service/pom.xml clean compile'
+	   
+       sh 'mvn -f cart-service/pom.xml clean compile'
    }
   
    stage('test')
