@@ -6,6 +6,7 @@ def yamlFile()
     echo "${JOB_BASE_NAME}"
 	echo "${JOB_NAME}"
 	echo "${env.BUILD_URL}"
+	echo "${openshift.project()}"
 	def datas = readYaml file: '/var/lib/jenkins/jobs/ddd/workspace/propertyFile.yml'
     env.microservice = datas.microservice
     env.devproject = datas.devproject
