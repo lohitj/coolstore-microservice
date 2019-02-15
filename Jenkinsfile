@@ -1,26 +1,30 @@
+
+    
 def yamlFile()
 {
-def datas = readYaml text: """
-templatePath: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.9/openshift/coolstore-template.yaml'
-microservice: 'web-ui'
-sonarTemplate: 'https://raw.githubusercontent.com/lohitj/coolstore-microservice/stable-ocp-3.10/sonarqube-ephemeral-template.yaml'
-sonarUrl: 'http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com'
-devproject: 'coolstore-dev-lohit'
-cicdproject: 'test-lohit'
-"""
+    echo 'start'
+    def datas = readYaml file: '/var/lib/jenkins/jobs/ddd/workspace/propertyFile.yml'
+    env.microservice = datas.microservice
+    env.devproject = datas.devproject
+    env.cicdproject = datas.cicdproject
+    env.templatePath = datas.templatePath
+    env.sonarTemplate = datas.sonarTemplate
+    env.templateName = datas.templateName
+	env.sonar = datas.sonar
 }
 def return1(name) 
 {
+    echo name
     openshift.withCluster() {
-    openshift.withProject(datas.devproject) {
-    return openshift.selector('dc', name).exists()
+    openshift.withProject("${devproject}") {
+    return openshift.selector('dc',"${microservice}").exists()
     }
 
 }
 }
 def checout()
 {
-    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: "${GIT_URL}"]]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/lohitj/coolstore-microservice.git']]])
 }
 
 def BuildDecide(update)
@@ -28,105 +32,99 @@ def BuildDecide(update)
     if(!update) {
         openshift.withCluster() {
 	openshift.verbose()
-        openshift.withProject(datas.devproject) {
-        openshift.newApp(datas.templatePath) 
+        openshift.withProject("${devproject}") {
+        openshift.newApp("${templatePath}") 
         }
     }
-	BuildDecideSonar()
+	
     }
     else  
     {
 	    openshift.withCluster() {
-	    openshift.withProject(datas.devproject) {
-        openshift.startBuild(datas.microservice)
+	    openshift.withProject("${devproject}") {
+        openshift.startBuild("${microservice}")
         }           	  
 	    }
+		/*BuildDecideSonar()*/
     }
 }
 def BuildDecideSonar()
 {
     openshift.withCluster() {
 	openshift.verbose()
-    openshift.withProject(datas.cicdproject) {
-    openshift.newApp(datas.sonarTemplate) 
+    openshift.withProject("${cicdproject}") {
+    openshift.newApp("${sonarTemplate}") 
         }
     }
 }
-
-pipeline 
+podTemplate(cloud:'openshift',label: 'selenium', 
+  containers: [
+    containerTemplate(
+      name: 'jnlp',
+      image: 'cloudbees/java-build-tools',
+      args: '${computer.jnlpmac} ${computer.name}'
+    )])
 {
-	agent any
-	
-    environment 
+node 
+{
+   
+   
+   def MAVEN_HOME = tool "MAVEN_HOME"
+   def JAVA_HOME = tool "JAVA_HOME"
+   env.PATH="${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
+    stage('Build')
+   {
+       checout()
+	   yamlFile()
+	   
+       sh 'mvn -f cart-service/pom.xml clean compile'
+   }
+  
+   stage('test')
+   {
+        sh 'mvn -f cart-service/pom.xml test'
+   }
+   stage ('Sonar')
+   {
+            
+      sh "mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-test-lohit.apps.na39.openshift.opentlc.com' -X"
+   }
+   stage('check')
+   {
+       BuildDecide(return1("${microservice}"))
+   }
+   stage('Jacoco')
     {
-        GIT_URL='https://github.com/lohitj/coolstore-microservice.git'
-    }
-    tools{
-        maven 'MAVEN_HOME'
-        jdk   'JAVA_HOME'
+        sh "mvn -f cart-service/pom.xml  clean package"
     }
 
-  stages 
-  {
-        stage ('check') 
-        {
-	        steps
-            	{ 	
-			yamlFile()
-                	BuildDecide(return1(datas.microservice))
-	        }
-        }
-        stage ('Build') 
-        {
-            steps
-            {
-                checout()
-                sh 'mvn -f cart-service/pom.xml clean verify'
-            }
-        }
-	stage ('Sonar')
-        {
-            steps
-            {
-                sh "mvn -f cart-service/pom.xml sonar:sonar -Dsonar.host.url='http://sonar-coolstore-dev-lohit.apps.na39.openshift.opentlc.com' -X"
-
-            }
-	    
-        }
-	stage ('Unit test')
-	  {
-		  steps
-		  {
-			sh "mvn -f cart-service/pom.xml test"
-		  }
-	  }
-	
-
-
-	 stage('Integration-Test')
-	  {
-
-		steps
-		  {
-			  container("jnlp"){sh "mvn -f cart-service/pom.xml integration-test"}
-		  }
-	  }
-			 
-        stage('Jacoco')
-        {
-            steps
-            {
-                sh "mvn -f cart-service/pom.xml  clean package"
-            }
-        }
-	stage('Findbug')
-        {
-            steps
-            {
-                sh "mvn -f cart-service/pom.xml  findbugs:findbugs"
-            }
-        }
-        
+		node('selenium')
+	{
+		stage('Integration-Test')
+		{
+			container('jnlp')
+			{
+			    echo'integration-test'
+			 //   sh"mvn -f cart-service/pom.xml integration-test"
+			}
+		}
 	}
-    
+
+			stage('Findbug')
+				{
+            
+					sh "mvn -f cart-service/pom.xml  findbugs:findbugs"
+				}
+			stage("Tagging Image for Production")
+				{	
+					script {
+						openshift.withCluster() {
+						openshift.withProject("${devproject}") {
+						openshift.tag("${templateName}:latest", "${templateName}-staging:latest") 
+					}
+				}
+			}
+		}
+  
+	}
 }
