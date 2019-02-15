@@ -5,7 +5,7 @@ def yamlFile()
     echo 'start'
     echo "${JOB_BASE_NAME}"
 	echo "${JOB_NAME}"
-	def datas = readYaml file: '/var/lib/jenkins/jobs/'+"${JOB_BASE_NAME}"+'/workspace/propertyFile.yml'
+	def datas = readYaml file: '/var/lib/jenkins/jobs/ddd/workspace/propertyFile.yml'
     env.microservice = datas.microservice
     env.devproject = datas.devproject
     env.cicdproject = datas.cicdproject
