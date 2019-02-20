@@ -92,6 +92,7 @@ node
 	   yamlFile()
 	   script{
 		   openshift.withCluster() {
+		openshift.verbose()
     openshift.withProject() {
     openshift.newApp("redhat-openjdk18-openshift:1.1~https://github.com/sourabhgupta385/spring-boot-mongodb-example","--strategy=source") 
 	     def builds = openshift.selector("bc", "spring-boot-mongodb-example").related('builds')
