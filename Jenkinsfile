@@ -90,10 +90,11 @@ node
 	   yamlFile()
 	   checout()
 	   yamlFile()
+	   openshift.newApp("redhat-openjdk18-openshift:1.1~https://github.com/sourabhgupta385/spring-boot-mongodb-example.git","--strategy=source","--wait")
        sh 'mvn -f cart-service/pom.xml clean compile'
    }
   
-   stage('test')
+   /*stage('test')
    {
         sh 'mvn -f cart-service/pom.xml test'
    }
@@ -141,7 +142,7 @@ node
 		stage("Promote to Production")
 		{
 			BuildDecide(return1("${microservice}","${prodproject}"))
-		}*/
+		}
   
-	}
+	} */
 }
