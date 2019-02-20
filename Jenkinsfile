@@ -80,8 +80,9 @@ node
    env.PATH="${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
     stage('Build')
    {
-       checout()
+       
 	   yamlFile()
+	   checout()
 	   
        sh 'mvn -f cart-service/pom.xml clean compile'
    }
