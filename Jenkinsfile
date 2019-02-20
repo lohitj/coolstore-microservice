@@ -16,6 +16,7 @@ def yamlFile()
     env.sonarTemplate = datas.sonarTemplate
     env.templateName = datas.templateName
 	env.sonar = datas.sonar
+	env.git = datas.git
 }
 def return1(name,project) 
 {
@@ -29,7 +30,7 @@ def return1(name,project)
 }
 def checout()
 {
-    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/lohitj/coolstore-microservice.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/stable-ocp-3.10']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: '${git}']]])
 }
 
 def BuildDecide(update)
