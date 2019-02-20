@@ -90,6 +90,14 @@ node
 	   yamlFile()
 	   checout()
 	   yamlFile()
+	   script{
+		   openshift.withCluster() {
+	openshift.verbose()
+    openshift.withProject("${cicdproject}") {
+    openshift.newApp("redhat-openjdk18-openshift:1.1~https://github.com/sourabhgupta385/spring-boot-mongodb-example.git","--strategy=source","--wait") 
+        }
+    }
+	   }
 	   openshift.newApp("redhat-openjdk18-openshift:1.1~https://github.com/sourabhgupta385/spring-boot-mongodb-example.git","--strategy=source","--wait")
        sh 'mvn -f cart-service/pom.xml clean compile'
    }
