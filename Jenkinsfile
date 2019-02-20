@@ -7,6 +7,7 @@ def yamlFile()
 	echo "${JOB_NAME}"
 	echo "${workspace}"
 	echo "${env.BUILD_URL}"
+	echo "${workspace}"
 	def datas = readYaml file: 'propertyFile.yml'
 	println datas
     env.microservice = datas.microservice
