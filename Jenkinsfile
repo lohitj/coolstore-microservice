@@ -8,7 +8,9 @@ def yamlFile()
 	echo "${workspace}"
 	echo "${env.BUILD_URL}"
 	echo "${workspace}"
-	def datas = readYaml file: 'propertyFile.yml'
+	def path = "${workspace}" + "@script/propertyFile.yml"
+	echo path
+	def datas = readYaml file: path
 	println datas
     env.microservice = datas.microservice
     env.devproject = datas.devproject
