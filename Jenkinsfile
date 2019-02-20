@@ -17,6 +17,7 @@ def yamlFile()
     env.templateName = datas.templateName
 	env.sonar = datas.sonar
 	env.git = datas.git
+	echo "${git}"
 }
 def return1(name,project) 
 {
