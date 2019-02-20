@@ -86,7 +86,7 @@ node
        
 	   yamlFile()
 	   checout()
-	   
+	   yamlFile()
        sh 'mvn -f cart-service/pom.xml clean compile'
    }
   
