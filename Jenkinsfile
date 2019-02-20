@@ -5,6 +5,8 @@ def yamlFile()
     echo 'start'
     echo "${JOB_BASE_NAME}"
 	echo "${JOB_NAME}"
+	def clusterUrl = openshift.project();
+echo "Now using cluster with url ${clusterUrl}"
 	echo "${env.BUILD_URL}"
 	def datas = readYaml file: '/var/lib/jenkins/jobs/test-lohit/jobs/'+"${JOB_BASE_NAME}"+'/workspace/propertyFile.yml'
     env.microservice = datas.microservice
