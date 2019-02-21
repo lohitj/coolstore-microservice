@@ -9,23 +9,16 @@ import org.junit.Assert;
 
 import org.openqa.selenium.MutableCapabilities;
 public class NewIT {
- 
-    WebDriver driver;
- 
-    @Test
-    public void beforeTest() {
-        String webDriverKey = "webdriver.chrome.driver";
-        String webDriverValue = System.getProperty("user.dir") +
-                "/target/tmp_webdrivers/chromedriver-linux-64bit";
-        System.setProperty(webDriverKey, webDriverValue);
-        driver = new ChromeDriver();
-        driver.get("http://www.google.com");
-    }
- 
-//todo: test
- 
-  /* @AfterTest
-    public void afterTest() {
-//         driver.quit();
-    }	*/
+	@Test
+	public void f() {
+		WebDriver webDriver = new RemoteWebDriver(DesiredCapabilities.firefox());
+		webDriver.get("http://www.google.com");
+		webDriver.getTitle();
+		String expectedTitle = "Google";
+		String actualTitle = null;
+		actualTitle = webDriver.getTitle();
+		Assert.assertTrue(actualTitle.contains(expectedTitle));
+		webDriver.quit();
+		System.out.println("Test completed--- Selenium");
+	}
 }
