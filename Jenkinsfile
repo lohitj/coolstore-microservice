@@ -107,7 +107,7 @@ node
        sh 'mvn -f cart-service/pom.xml clean compile'
    }
   
-   /*stage('test')
+   stage('test')
    {
         sh 'mvn -f cart-service/pom.xml test'
    }
@@ -129,7 +129,8 @@ node
 		{
 			container('jnlp'){
 			    echo'integration-test'
-			 //sh"mvn -f cart-service/pom.xml integration-test"
+				checout()
+			sh"mvn -f cart-service/pom.xml integration-test"
 			}
 		}}
 
