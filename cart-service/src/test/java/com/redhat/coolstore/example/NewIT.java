@@ -1,10 +1,10 @@
 package com.redhat.coolstore;
 	
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.junit.Assert;
 		
 
 import org.openqa.selenium.MutableCapabilities;
