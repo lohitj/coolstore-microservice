@@ -72,7 +72,7 @@ podTemplate(cloud:'openshift',label: 'selenium',
   containers: [
     containerTemplate(
       name: 'jnlp',
-      image: 'cloudbees/java-build-tools',
+      image: 'cloudbees/jnlp-slave-with-java-build-tools',
 	  alwaysPullImage: true,
       args: '${computer.jnlpmac} ${computer.name}'
     )])
