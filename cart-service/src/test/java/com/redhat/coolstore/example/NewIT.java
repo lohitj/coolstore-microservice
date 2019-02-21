@@ -5,9 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.junit.Assert;
-		
-
-import org.openqa.selenium.MutableCapabilities;
 public class NewIT {
 	@Test
 	public void f() {
